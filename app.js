@@ -6,7 +6,7 @@ const ENTRY_IDS = {
   github: 1024284574,
   linkedin: 2133174874,
   availability: 1709997039,
-  unpaid: 329680528,
+  pay: 329680528,
   stack: 895075083,
   iac_level: 1736882114,
   shipped: 617983085,

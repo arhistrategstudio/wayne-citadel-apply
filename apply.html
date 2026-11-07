@@ -45,11 +45,11 @@
         <div class="field"><label for="github">GitHub or portfolio</label><input id="github" name="github" type="url" placeholder="https://" required></div>
         <div class="field"><label for="linkedin">LinkedIn <em>optional</em></label><input id="linkedin" name="linkedin" type="url" placeholder="https://"></div>
       </div>
-      <div class="field" role="radiogroup" aria-labelledby="unpaid-label">
-        <p class="label" id="unpaid-label">We have no budget yet, so this role is unpaid for now. Does that work for you?</p>
-        <label class="opt"><input type="radio" name="unpaid" value="Yes" required><span>Yes, that works</span></label>
-        <label class="opt"><input type="radio" name="unpaid" value="For a limited time"><span>Yes, for a limited time</span></label>
-        <label class="opt"><input type="radio" name="unpaid" value="No"><span>No, but keep me in mind once there is a budget</span></label>
+      <div class="field" role="radiogroup" aria-labelledby="pay-label">
+        <p class="label" id="pay-label">This is a paid role, but the budget is still being negotiated, so we cannot give you a number yet. Does that work for you?</p>
+        <label class="opt"><input type="radio" name="pay" value="Can start before the budget is set" required><span>Yes, I can start before the budget is set</span></label>
+        <label class="opt"><input type="radio" name="pay" value="Needs the number before starting"><span>I need the number before I start</span></label>
+        <label class="opt"><input type="radio" name="pay" value="Contact once the budget is set"><span>Contact me once the budget is set</span></label>
       </div>
     </fieldset>
 
@@ -101,7 +101,7 @@
       <legend><span>04</span> Design problem</legend>
       <div class="brief">
         <p><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener">Jev</a>, from TypeSafe AI, takes unstructured state and returns typed, calibrated decisions instead of free text. We want a unique model of our own in that spirit, for Terraform and OpenTofu pull requests, with one difference: it must be deterministic. Same input and same model version, same output.</p>
-        <p>The AI still may not decide what a finding is or how severe it is. There is no budget for paid training or GPUs, and we have a small fixture library to start from.</p>
+        <p>The AI still may not decide what a finding is or how severe it is. Assume no spending on paid training or GPUs for now, and a small fixture library to start from.</p>
       </div>
       <div class="field">
         <label for="model_design">How would you build it?</label>
@@ -110,7 +110,7 @@
           <li>Which decisions the model makes, given what it is not allowed to decide</li>
           <li>Input representation and output types</li>
           <li>How you get determinism, given that Jev's decisions are probabilistic</li>
-          <li>Training data and method, with few fixtures and no budget</li>
+          <li>Training data and method, with few fixtures and no training spend</li>
           <li>Evaluation and calibration</li>
           <li>Hostile input, such as a resource tag written as an instruction to the model</li>
           <li>What you would try in the first two weeks</li>
