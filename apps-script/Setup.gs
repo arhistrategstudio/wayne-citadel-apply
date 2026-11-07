@@ -26,7 +26,7 @@ function createRoleForms() {
   const out = {};
   for (const role of NEW_ROLES) {
     const title = `Wayne Citadel ${role.name} Applications`;
-    const form = FormApp.create(title).setCollectEmail(false).setAcceptingResponses(true);
+    const form = FormApp.create(title).setTitle(title).setCollectEmail(false).setAcceptingResponses(true);
     if (typeof form.setPublished === "function") form.setPublished(true);
     for (const [itemTitle, type] of role.items) {
       (type === "paragraph" ? form.addParagraphTextItem() : form.addTextItem()).setTitle(itemTitle);
