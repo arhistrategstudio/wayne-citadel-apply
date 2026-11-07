@@ -1,7 +1,8 @@
-// One-time setup for the role forms. Run createRoleForms() once: it creates a form,
-// a response sheet and a doc per role in Drive under "Wayne Citadel Applications",
-// moves the AI Engineer files there too, and logs the IDs as JSON. Copy the IDs into
-// Code.gs (ROLES) and into each role's apply.html, then run install().
+// Setup for the role forms. createRoleForms() creates a form, a response sheet and a doc
+// for each role in Drive under "Wayne Citadel Applications", moves the AI Engineer files
+// there too, and logs the IDs as JSON. Roles that already have a folder are skipped, so it
+// can be run again after adding a role. Copy the IDs into Code.gs (ROLES) and into the
+// role's apply.html, then run install().
 const AI_FILES = {
   form: "1J8eAK61Z1d73rnRRrUlwQ4LQV82cjwuJZ8tUJyOS_ok",
   sheet: "1lGqlPof1kqKEPxkyilGow1mjDH_dEetYUpcLsU-5b9g",
@@ -14,6 +15,7 @@ const NEW_ROLES = [
   { key: "cybersecurity", name: "Cybersecurity Engineer", items: [["Full name", "text"], ["Email", "text"], ["Location and timezone", "text"], ["GitHub or portfolio", "text"], ["LinkedIn", "text"], ["Hours per week", "text"], ["Budget not set yet", "text"], ["Stack", "paragraph"], ["AWS IAM level", "text"], ["Shipped security control", "paragraph"], ["IAM severity answer", "paragraph"], ["Workflow risk answer", "paragraph"], ["Knowledge check", "text"], ["Design problem", "paragraph"]] },
   { key: "ui-ux", name: "UI/UX Designer", items: [["Full name", "text"], ["Email", "text"], ["Location and timezone", "text"], ["GitHub or portfolio", "text"], ["LinkedIn", "text"], ["Hours per week", "text"], ["Budget not set yet", "text"], ["Stack", "paragraph"], ["Code level", "text"], ["Shipped design", "paragraph"], ["Research answer", "paragraph"], ["States answer", "paragraph"], ["Knowledge check", "text"], ["Design problem", "paragraph"]] },
   { key: "devops", name: "DevOps Engineer", items: [["Full name", "text"], ["Email", "text"], ["Location and timezone", "text"], ["GitHub or portfolio", "text"], ["LinkedIn", "text"], ["Hours per week", "text"], ["Budget not set yet", "text"], ["Stack", "paragraph"], ["Terraform and AWS level", "text"], ["Shipped pipeline", "paragraph"], ["Reproducibility answer", "paragraph"], ["Release answer", "paragraph"], ["Knowledge check", "text"], ["Design problem", "paragraph"]] },
+  { key: "software", name: "Software Engineer", items: [["Full name", "text"], ["Email", "text"], ["Location and timezone", "text"], ["GitHub or portfolio", "text"], ["LinkedIn", "text"], ["Hours per week", "text"], ["Budget not set yet", "text"], ["Stack", "paragraph"], ["Testing level", "text"], ["Shipped software", "paragraph"], ["Rule change answer", "paragraph"], ["Determinism answer", "paragraph"], ["Knowledge check", "text"], ["Design problem", "paragraph"]] },
 ];
 
 function createRoleForms() {
@@ -25,6 +27,8 @@ function createRoleForms() {
 
   const out = {};
   for (const role of NEW_ROLES) {
+    const dirName = role.name.replace("/", "-");
+    if (root.getFoldersByName(dirName).hasNext()) continue;
     const title = `Wayne Citadel ${role.name} Applications`;
     const form = FormApp.create(title).setTitle(title).setCollectEmail(false).setAcceptingResponses(true);
     if (typeof form.setPublished === "function") form.setPublished(true);
@@ -35,7 +39,7 @@ function createRoleForms() {
     form.setDestination(FormApp.DestinationType.SPREADSHEET, sheet.getId());
     const doc = DocumentApp.create(title);
 
-    const dir = folder(root, role.name.replace("/", "-"));
+    const dir = root.createFolder(dirName);
     for (const id of [form.getId(), sheet.getId(), doc.getId()]) DriveApp.getFileById(id).moveTo(dir);
 
     out[role.key] = {

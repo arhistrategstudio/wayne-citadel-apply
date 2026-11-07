@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apply · Wayne Citadel</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span>Wayne Citadel</a>
+  <span class="bar-link muted" id="saved" aria-live="polite"></span>
+</header>
+
+<main class="page narrow">
+  <form id="form" novalidate>
+    <p class="tag">Application / Software Engineer</p>
+    <h1 class="form-title">Tell us how you build.</h1>
+    <p class="lead">Short, specific answers beat long ones. Your draft is kept in this browser until you submit.</p>
+
+    <fieldset>
+      <legend><span>01</span> About you</legend>
+      <div class="two">
+        <div class="field"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="location">Location and timezone</label><input id="location" name="location" placeholder="Berlin, CET" required></div>
+        <div class="field">
+          <label for="availability">Hours per week you can give</label>
+          <select id="availability" name="availability" required>
+            <option value="">Select</option>
+            <option>Under 5</option>
+            <option>5 to 10</option>
+            <option>10 to 20</option>
+            <option>Over 20</option>
+          </select>
+        </div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="github">GitHub or portfolio</label><input id="github" name="github" type="url" placeholder="https://" required></div>
+        <div class="field"><label for="linkedin">LinkedIn <em>optional</em></label><input id="linkedin" name="linkedin" type="url" placeholder="https://"></div>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="pay-label">
+        <p class="label" id="pay-label">This is a paid role, but the budget is still being negotiated, so we cannot give you a number yet. Does that work for you?</p>
+        <label class="opt"><input type="radio" name="pay" value="Can start before the budget is set" required><span>Yes, I can start before the budget is set</span></label>
+        <label class="opt"><input type="radio" name="pay" value="Needs the number before starting"><span>I need the number before I start</span></label>
+        <label class="opt"><input type="radio" name="pay" value="Contact once the budget is set"><span>Contact me once the budget is set</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span>02</span> Your experience</legend>
+      <div class="field">
+        <label for="stack">What is your stack?</label>
+        <p class="hint">Languages, frameworks, testing, build and CI tools, databases. Mark what you have used in production.</p>
+        <textarea id="stack" name="stack" rows="4" required></textarea>
+      </div>
+      <div class="field">
+        <label for="level">How do you test the code you ship?</label>
+        <select id="level" name="level" required>
+          <option value="">Select</option>
+          <option>Mostly by hand</option>
+          <option>Unit tests</option>
+          <option>Unit and integration tests in CI</option>
+          <option>Also property-based or golden-file tests that block merges</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="shipped">Describe one piece of software you shipped that others depended on.</label>
+        <p class="hint">What did it do, how did you keep it correct as it changed, and what broke first?</p>
+        <textarea id="shipped" name="shipped" rows="5" required></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span>03</span> How you would work here</legend>
+      <div class="field">
+        <label for="scenario_a">A teammate changes the rule for public S3 buckets. All unit tests pass, but on the fixture library 37 findings change: 30 disappear and 7 are new. How do you decide whether the change can merge?</label>
+        <p class="hint">Say what you look at first and what evidence you want.</p>
+        <textarea id="scenario_a" name="scenario_a" rows="5" required></textarea>
+      </div>
+      <div class="field">
+        <label for="scenario_b">The analyzer must give the same findings, in the same order, for the same plan. A customer reports that two runs on the same commit listed findings in a different order, and once a finding was missing. Where do you look, and how do you prevent it for good?</label>
+        <textarea id="scenario_b" name="scenario_b" rows="5" required></textarea>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="check-label">
+        <p class="label" id="check-label">In the plan JSON, an entry in <code>resource_changes</code> has <code>"actions": ["delete", "create"]</code>. What does that mean?</p>
+        <label class="opt"><input type="radio" name="check" value="A: updated in place" required><span>The resource is updated in place</span></label>
+        <label class="opt"><input type="radio" name="check" value="B: two separate resources"><span>Two separate resources: one is deleted, another is created</span></label>
+        <label class="opt"><input type="radio" name="check" value="C: replaced, destroyed first"><span>The resource is replaced: destroyed first, then created again</span></label>
+        <label class="opt"><input type="radio" name="check" value="D: plan failed, will retry"><span>The plan failed and Terraform will retry the change</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="final">
+      <legend><span>04</span> Design problem</legend>
+      <div class="brief">
+        <p>The analyzer takes a plan JSON and produces findings: rule ID, severity, affected resource, and the facts that prove it. Today the rules are hard-coded functions in one file. Adding a rule takes a day and often breaks another one.</p>
+        <p>We want 200 rules within a year, written by people who are not all on the core team. Every finding must stay deterministic and traceable to the plan.</p>
+      </div>
+      <div class="field">
+        <label for="design">How would you design the rule engine?</label>
+        <p class="hint">Cover these points. If you think the brief is wrong in part, say so and explain why.</p>
+        <ol class="points">
+          <li>How a rule is written, and what it may and may not access</li>
+          <li>The resource graph: references, modules, <code>count</code> and <code>for_each</code></li>
+          <li>Values that are only known after apply</li>
+          <li>Testing a rule, and proving a change did not break the others</li>
+          <li>Performance on a plan with 20,000 resources</li>
+          <li>Versioning rules so customers can pin behaviour</li>
+          <li>What you would build in the first two weeks</li>
+        </ol>
+        <textarea id="design" name="design" rows="16" minlength="400" required></textarea>
+        <p class="hint count"><span id="count">0</span> words. Most good answers run 300 to 800.</p>
+      </div>
+    </fieldset>
+
+    <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <p class="error" id="error" role="alert" hidden></p>
+    <div class="actions">
+      <button class="btn" id="submit" type="submit">Submit application</button>
+      <span class="note">Your answers are used only to review this application.</span>
+    </div>
+  </form>
+
+  <section class="done" id="done" hidden tabindex="-1">
+    <p class="tag">Received</p>
+    <h1 class="form-title">Thank you.</h1>
+    <p class="lead">Your application is in. We will be in touch by email.</p>
+    <a class="btn ghost" href="index.html">Back to Wayne Citadel</a>
+  </section>
+</main>
+
+<footer class="foot">Wayne Citadel</footer>
+<script>
+const APPLICATION = {
+  endpoint: "https://docs.google.com/forms/d/e/1FAIpQLSd0Bb2keogEvvTTxP9glirB9bF4UM0hbNQ4quPwkAFwf9aiHQ/formResponse",
+  draftKey: "wc-software-draft",
+  entries: {
+    name: 1858296562,
+    email: 1374657471,
+    location: 1637883328,
+    github: 1711615344,
+    linkedin: 1451238067,
+    availability: 1087435532,
+    pay: 1241197001,
+    stack: 1552902170,
+    level: 623895082,
+    shipped: 760784492,
+    scenario_a: 1133240692,
+    scenario_b: 915278532,
+    check: 703757876,
+    design: 1091715475,
+  },
+};
+</script>
+<script src="../app.js"></script>
+</body>
+</html>

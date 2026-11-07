@@ -85,6 +85,18 @@ const ROLES = {
       "Design problem": "Design problem: How would you build the CI and release system?",
     },
   },
+  // Software Engineer
+  "1dOfmRZcGr-6Fbqo5q_rTQlxMayfKhUlwdeMttIVWGFA": {
+    doc: "1cdlnJ7hVlr-LMPHQQB5NikU0uM29LQE5ElP8YnTw37Y",
+    check: { title: "Knowledge check", correct: "C" },
+    long: {
+      "Stack": "What is your stack?",
+      "Shipped software": "Describe one piece of software you shipped that others depended on.",
+      "Rule change answer": "A teammate changes the rule for public S3 buckets. All unit tests pass, but on the fixture library 37 findings change: 30 disappear and 7 are new. How do you decide whether the change can merge?",
+      "Determinism answer": "The analyzer must give the same findings, in the same order, for the same plan. A customer reports that two runs on the same commit listed findings in a different order, and once a finding was missing. Where do you look, and how do you prevent it for good?",
+      "Design problem": "Design problem: How would you design the rule engine?",
+    },
+  },
 };
 
 function install() {

@@ -15,12 +15,13 @@ Google Sheet stays as a raw backup. All forms, sheets and docs are in Drive unde
 | Cybersecurity Engineer | `cybersecurity/` |
 | UI/UX Designer | `ui-ux/` |
 | DevOps Engineer | `devops/` |
+| Software Engineer | `software/` |
 
 - `app.js`: the form logic, shared by every role. Each `apply.html` defines `APPLICATION`
   with its form endpoint, entry IDs and draft key.
 - `styles.css`: shared styles
 - `apps-script/Code.gs`: form-submit trigger that writes each role's responses to its doc
-- `apps-script/Setup.gs`: one-time script that created the role forms, sheets and docs
+- `apps-script/Setup.gs`: setup script that creates the role forms, sheets and docs
 
 ## Setting up the doc trigger
 
@@ -31,7 +32,7 @@ select `install`, click Run and approve the permissions.
 
 ## Adding a role
 
-Add the role to `NEW_ROLES` in `Setup.gs` and run `createRoleForms()`. It logs the new
-form, sheet and doc IDs, the form endpoint and the entry IDs in field order. Put the
+Add the role to `NEW_ROLES` in `Setup.gs` and run `createRoleForms()`. Roles that already
+have a folder in Drive are skipped. It logs the new form, sheet and doc IDs, the form endpoint and the entry IDs in field order. Put the
 endpoint and entry IDs in the role's `apply.html`, add the form to `ROLES` in `Code.gs`,
 and run `install()`.
