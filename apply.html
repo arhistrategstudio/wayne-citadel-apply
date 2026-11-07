@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apply · Wayne Citadel</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span>Wayne Citadel</a>
+  <span class="bar-link muted" id="saved" aria-live="polite"></span>
+</header>
+
+<main class="page narrow">
+  <form id="form" novalidate>
+    <p class="tag">Application / AI Engineer</p>
+    <h1 class="form-title">Tell us how you build.</h1>
+    <p class="lead">Short, specific answers beat long ones. Your draft is kept in this browser until you submit.</p>
+
+    <fieldset>
+      <legend><span>01</span> About you</legend>
+      <div class="two">
+        <div class="field"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="location">Location and timezone</label><input id="location" name="location" placeholder="Berlin, CET" required></div>
+        <div class="field">
+          <label for="availability">Hours per week you can give</label>
+          <select id="availability" name="availability" required>
+            <option value="">Select</option>
+            <option>Under 5</option>
+            <option>5 to 10</option>
+            <option>10 to 20</option>
+            <option>Over 20</option>
+          </select>
+        </div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="github">GitHub or portfolio</label><input id="github" name="github" type="url" placeholder="https://" required></div>
+        <div class="field"><label for="linkedin">LinkedIn <em>optional</em></label><input id="linkedin" name="linkedin" type="url" placeholder="https://"></div>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="unpaid-label">
+        <p class="label" id="unpaid-label">We have no budget yet, so this role is unpaid for now. Does that work for you?</p>
+        <label class="opt"><input type="radio" name="unpaid" value="Yes" required><span>Yes, that works</span></label>
+        <label class="opt"><input type="radio" name="unpaid" value="For a limited time"><span>Yes, for a limited time</span></label>
+        <label class="opt"><input type="radio" name="unpaid" value="No"><span>No, but keep me in mind once there is a budget</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span>02</span> Your experience</legend>
+      <div class="field">
+        <label for="stack">What is your stack?</label>
+        <p class="hint">Languages, model providers, LLM frameworks, evaluation tools, ML training, infrastructure. Mark what you have used in production.</p>
+        <textarea id="stack" name="stack" rows="4" required></textarea>
+      </div>
+      <div class="field">
+        <label for="iac_level">How well do you know Terraform or OpenTofu on AWS?</label>
+        <select id="iac_level" name="iac_level" required>
+          <option value="">Select</option>
+          <option>None yet, but I can learn it</option>
+          <option>I have read and reviewed plans</option>
+          <option>I write Terraform regularly</option>
+          <option>I run it in production, with CI</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="shipped">Describe one LLM system you shipped.</label>
+        <p class="hint">What did it do, how did you measure quality, and what broke first?</p>
+        <textarea id="shipped" name="shipped" rows="5" required></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span>03</span> How you would work here</legend>
+      <div class="field">
+        <label for="grounding">Our model writes: "This instance is exposed to the internet." The facts only prove a security group rule allows TCP/22 from 0.0.0.0/0. An entity check passes, because every value in the sentence exists in the input. How do you catch this, and what gets published when validation fails?</label>
+        <textarea id="grounding" name="grounding" rows="5" required></textarea>
+      </div>
+      <div class="field">
+        <label for="evaluation">The model provider ships a new version. You have recorded plan fixtures, golden-file tests, a response cache and an evaluation set. How do you decide whether we may switch?</label>
+        <p class="hint">Name the metrics and the pass or fail gate.</p>
+        <textarea id="evaluation" name="evaluation" rows="5" required></textarea>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="plan-label">
+        <p class="label" id="plan-label">In <code>terraform show -json</code> output, a security group has no <code>cidr_blocks</code> in <code>after</code>, and <code>after_unknown.cidr_blocks</code> is <code>true</code>. What should the analyzer do?</p>
+        <label class="opt"><input type="radio" name="plan_check" value="A: no public exposure, pass" required><span>Report no public exposure and pass</span></label>
+        <label class="opt"><input type="radio" name="plan_check" value="B: high severity finding"><span>Raise a high-severity finding</span></label>
+        <label class="opt"><input type="radio" name="plan_check" value="C: incomplete analysis, not safe"><span>Record the analysis as incomplete, and do not call it safe</span></label>
+        <label class="opt"><input type="radio" name="plan_check" value="D: ask the model"><span>Ask the model to infer the likely value</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="final">
+      <legend><span>04</span> Design problem</legend>
+      <div class="brief">
+        <p><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener">Jev</a>, from TypeSafe AI, takes unstructured state and returns typed, calibrated decisions instead of free text. We want a unique model of our own in that spirit, for Terraform and OpenTofu pull requests, with one difference: it must be deterministic. Same input and same model version, same output.</p>
+        <p>The AI still may not decide what a finding is or how severe it is. There is no budget for paid training or GPUs, and we have a small fixture library to start from.</p>
+      </div>
+      <div class="field">
+        <label for="model_design">How would you build it?</label>
+        <p class="hint">Cover these points. If you think the idea is wrong in part, say so and explain why.</p>
+        <ol class="points">
+          <li>Which decisions the model makes, given what it is not allowed to decide</li>
+          <li>Input representation and output types</li>
+          <li>How you get determinism, given that Jev's decisions are probabilistic</li>
+          <li>Training data and method, with few fixtures and no budget</li>
+          <li>Evaluation and calibration</li>
+          <li>Hostile input, such as a resource tag written as an instruction to the model</li>
+          <li>What you would try in the first two weeks</li>
+        </ol>
+        <textarea id="model_design" name="model_design" rows="16" minlength="400" required></textarea>
+        <p class="hint count"><span id="count">0</span> words. Most good answers run 300 to 800.</p>
+      </div>
+    </fieldset>
+
+    <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <p class="error" id="error" role="alert" hidden></p>
+    <div class="actions">
+      <button class="btn" id="submit" type="submit">Submit application</button>
+      <span class="note">Your answers are used only to review this application.</span>
+    </div>
+  </form>
+
+  <section class="done" id="done" hidden tabindex="-1">
+    <p class="tag">Received</p>
+    <h1 class="form-title">Thank you.</h1>
+    <p class="lead">Your application is in. We will be in touch by email.</p>
+    <a class="btn ghost" href="index.html">Back to Wayne Citadel</a>
+  </section>
+</main>
+
+<footer class="foot">Wayne Citadel</footer>
+<script src="app.js"></script>
+</body>
+</html>
