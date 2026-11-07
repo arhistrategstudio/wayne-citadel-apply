@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apply · Wayne Citadel</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span>Wayne Citadel</a>
+  <span class="bar-link muted" id="saved" aria-live="polite"></span>
+</header>
+
+<main class="page narrow">
+  <form id="form" novalidate>
+    <p class="tag">Application / Cybersecurity Engineer</p>
+    <h1 class="form-title">Tell us how you build.</h1>
+    <p class="lead">Short, specific answers beat long ones. Your draft is kept in this browser until you submit.</p>
+
+    <fieldset>
+      <legend><span>01</span> About you</legend>
+      <div class="two">
+        <div class="field"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="location">Location and timezone</label><input id="location" name="location" placeholder="Berlin, CET" required></div>
+        <div class="field">
+          <label for="availability">Hours per week you can give</label>
+          <select id="availability" name="availability" required>
+            <option value="">Select</option>
+            <option>Under 5</option>
+            <option>5 to 10</option>
+            <option>10 to 20</option>
+            <option>Over 20</option>
+          </select>
+        </div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="github">GitHub or portfolio</label><input id="github" name="github" type="url" placeholder="https://" required></div>
+        <div class="field"><label for="linkedin">LinkedIn <em>optional</em></label><input id="linkedin" name="linkedin" type="url" placeholder="https://"></div>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="pay-label">
+        <p class="label" id="pay-label">This is a paid role, but the budget is still being negotiated, so we cannot give you a number yet. Does that work for you?</p>
+        <label class="opt"><input type="radio" name="pay" value="Can start before the budget is set" required><span>Yes, I can start before the budget is set</span></label>
+        <label class="opt"><input type="radio" name="pay" value="Needs the number before starting"><span>I need the number before I start</span></label>
+        <label class="opt"><input type="radio" name="pay" value="Contact once the budget is set"><span>Contact me once the budget is set</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span>02</span> Your experience</legend>
+      <div class="field">
+        <label for="stack">What is your stack?</label>
+        <p class="hint">AWS security services, IaC scanners (Checkov, tfsec, Trivy, Prowler), SAST, threat modeling, incident response, languages. Mark what you have used in production.</p>
+        <textarea id="stack" name="stack" rows="4" required></textarea>
+      </div>
+      <div class="field">
+        <label for="level">How well do you know AWS IAM policy evaluation?</label>
+        <select id="level" name="level" required>
+          <option value="">Select</option>
+          <option>None yet, but I can learn it</option>
+          <option>I write basic policies</option>
+          <option>I reason about SCPs, permission boundaries, resource policies and conditions</option>
+          <option>I have audited IAM at scale in production</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="shipped">Describe one security control or detection you built and kept running.</label>
+        <p class="hint">What did it catch, how did you measure false positives, and what broke first?</p>
+        <textarea id="shipped" name="shipped" rows="5" required></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span>03</span> How you would work here</legend>
+      <div class="field">
+        <label for="scenario_a">A pull request changes an IAM policy from <code>s3:GetObject</code> on one bucket to <code>s3:*</code> on <code>arn:aws:s3:::*</code>, with a condition on <code>aws:SourceVpc</code>. What severity should the analyzer assign, and what facts must the finding contain?</label>
+        <p class="hint">The explanation layer may only say what the facts prove.</p>
+        <textarea id="scenario_a" name="scenario_a" rows="5" required></textarea>
+      </div>
+      <div class="field">
+        <label for="scenario_b">Our Action runs on <code>pull_request_target</code> so it can comment on pull requests from forks. It checks out the pull-request head and runs <code>terraform plan</code>. What is the risk, and how would you redesign the workflow?</label>
+        <p class="hint">Name the attack and the permissions involved.</p>
+        <textarea id="scenario_b" name="scenario_b" rows="5" required></textarea>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="check-label">
+        <p class="label" id="check-label">A security group rule allows TCP/22 from <code>0.0.0.0/0</code>. The instance it is attached to is in a private subnet with no route to an internet gateway. What should the analyzer report?</p>
+        <label class="opt"><input type="radio" name="check" value="A: nothing, not reachable" required><span>Nothing, because the instance is not reachable</span></label>
+        <label class="opt"><input type="radio" name="check" value="B: high, internet can reach SSH"><span>A high-severity finding saying the internet can reach SSH</span></label>
+        <label class="opt"><input type="radio" name="check" value="C: rule finding with routing as fact"><span>A finding for the permissive rule, with the routing recorded as a fact and no claim of internet exposure</span></label>
+        <label class="opt"><input type="radio" name="check" value="D: ask the model"><span>Ask the model whether the instance is reachable</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="final">
+      <legend><span>04</span> Design problem</legend>
+      <div class="brief">
+        <p>Wayne Citadel runs in a customer's GitHub Actions. It reads plans from pull requests that anyone may open, sends facts to a language model, and writes comments and SARIF back. Some customers use it on public repositories.</p>
+        <p>Threat model the tool itself, not the infrastructure it reviews.</p>
+      </div>
+      <div class="field">
+        <label for="design">How would you threat model Wayne Citadel?</label>
+        <p class="hint">Cover these points. If you think the brief is wrong in part, say so and explain why.</p>
+        <ol class="points">
+          <li>Assets and trust boundaries</li>
+          <li>Attackers and entry points, including forked pull requests and malicious plan content</li>
+          <li>Prompt injection through resource names, tags and descriptions</li>
+          <li>Tokens and permissions: what the Action needs, and nothing more</li>
+          <li>Supply chain: our releases, dependencies and the model provider</li>
+          <li>Detection and response when something goes wrong</li>
+          <li>What you would test or fix in the first two weeks</li>
+        </ol>
+        <textarea id="design" name="design" rows="16" minlength="400" required></textarea>
+        <p class="hint count"><span id="count">0</span> words. Most good answers run 300 to 800.</p>
+      </div>
+    </fieldset>
+
+    <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <p class="error" id="error" role="alert" hidden></p>
+    <div class="actions">
+      <button class="btn" id="submit" type="submit">Submit application</button>
+      <span class="note">Your answers are used only to review this application.</span>
+    </div>
+  </form>
+
+  <section class="done" id="done" hidden tabindex="-1">
+    <p class="tag">Received</p>
+    <h1 class="form-title">Thank you.</h1>
+    <p class="lead">Your application is in. We will be in touch by email.</p>
+    <a class="btn ghost" href="index.html">Back to Wayne Citadel</a>
+  </section>
+</main>
+
+<footer class="foot">Wayne Citadel</footer>
+<script>
+const APPLICATION = {
+  endpoint: "https://docs.google.com/forms/d/e/1FAIpQLSfnjNOA_c2gaAJDmP2j8FlY44loXbEQAdGwFfHut6b9BWgASQ/formResponse",
+  draftKey: "wc-cybersecurity-draft",
+  entries: {
+    name: 1783873619,
+    email: 2009766549,
+    location: 30625210,
+    github: 1274683801,
+    linkedin: 220510709,
+    availability: 442195120,
+    pay: 210369409,
+    stack: 1818729985,
+    level: 1988160224,
+    shipped: 528564831,
+    scenario_a: 1600053237,
+    scenario_b: 74858401,
+    check: 586317641,
+    design: 2049958955,
+  },
+};
+</script>
+<script src="../app.js"></script>
+</body>
+</html>

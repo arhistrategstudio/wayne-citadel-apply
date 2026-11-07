@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Backend Engineer · Wayne Citadel</title>
+<meta name="description" content="Wayne Citadel is building a pull-request security review tool for Terraform and OpenTofu on AWS. We are looking for a Backend Engineer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span>Wayne Citadel</a>
+  <a class="bar-link" href="apply.html">Apply</a>
+</header>
+
+<main class="page">
+  <section class="hero">
+    <p class="tag">Open role / Backend Engineer</p>
+    <h1>Security review for infrastructure changes, before they merge.</h1>
+    <p class="lead">Wayne Citadel builds a pull-request security review tool for Terraform and OpenTofu on AWS. It runs in GitHub Actions and tells reviewers what a change does to security, in language they can act on.</p>
+    <div class="actions">
+      <a class="btn" href="apply.html">Start application</a>
+      <span class="note">About 30 minutes. One written design answer at the end.</span>
+    </div>
+  </section>
+
+  <section class="terminal" aria-label="Example of the review flow">
+    <div class="term-head"><span>pull request #128</span><span>terraform plan</span></div>
+<pre><code><span class="c"># the change</span>
+  aws_security_group.bastion
+<span class="del">- cidr_blocks = ["10.0.0.0/16"]</span>
+<span class="add">+ cidr_blocks = ["0.0.0.0/0"]</span>
+
+<span class="c"># deterministic analyzer: the facts</span>
+finding   public SSH configuration
+severity  high
+
+<span class="c"># grounded explanation: validated against the facts</span>
+This rule permits any IPv4 source to attempt TCP/22.</code></pre>
+  </section>
+
+  <section class="block">
+    <h2>What we are building</h2>
+    <div class="grid">
+      <article class="card">
+        <p class="card-label">Problem</p>
+        <p>Infrastructure changes submitted through GitHub pull requests can silently introduce security risks: widened IAM permissions, public exposure, destructive replacements. Reviewers rarely have time to read a full Terraform plan.</p>
+      </article>
+      <article class="card">
+        <p class="card-label">Constraint</p>
+        <p>Explain only the change, never scan the whole state. The AI must never decide what a finding is or how severe it is. Those decisions stay with deterministic logic. Nothing in the output may be invented.</p>
+      </article>
+      <article class="card">
+        <p class="card-label">Decision</p>
+        <p>Detection is separate from explanation. A deterministic analyzer produces findings as facts. A grounded language-model layer turns them into a readable impact explanation, validated against the input facts before it is published to the pull request as a comment and as SARIF.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Where you would work</h2>
+    <ul class="list">
+      <li>The analyzer pipeline: parse <code>terraform show -json</code>, normalize resources, run deterministic rules, produce findings.</li>
+      <li>The GitHub App: webhooks, check runs, pull-request comments, SARIF upload, rate limits and retries.</li>
+      <li>The API and storage for findings, suppressions and history across commits.</li>
+    </ul>
+  </section>
+
+  <section class="facts" aria-label="Before you apply">
+    <div><p class="fact-num">Early</p><p>The project is at an early stage. Much of it is still to be built.</p></div>
+    <div><p class="fact-num">~16</p><p>People on the team right now.</p></div>
+    <div class="warn"><p class="fact-num">Paid role</p><p>This is a paid role. The budget is still being negotiated, so we cannot give you a number yet. We would rather say that up front.</p></div>
+  </section>
+
+  <section class="block">
+    <h2>Other open roles</h2>
+    <ul class="list">
+      <li><a href="../index.html">AI Engineer</a></li>
+      <li><a href="../frontend/index.html">Frontend Engineer</a></li>
+      <li><a href="../fullstack/index.html">Full Stack Engineer</a></li>
+      <li><a href="../cybersecurity/index.html">Cybersecurity Engineer</a></li>
+      <li><a href="../ui-ux/index.html">UI/UX Designer</a></li>
+      <li><a href="../devops/index.html">DevOps Engineer</a></li>
+    </ul>
+  </section>
+
+  <section class="end">
+    <h2>Interested?</h2>
+    <a class="btn" href="apply.html">Start application</a>
+  </section>
+</main>
+
+<footer class="foot">Wayne Citadel</footer>
+</body>
+</html>

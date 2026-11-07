@@ -1,17 +1,37 @@
-# Wayne Citadel: AI Engineer application
+# Wayne Citadel: application site
 
-Static application form, published with GitHub Pages. Submissions go to a Google Form.
-An Apps Script bound to the form appends each response to a private Google Doc in a
-readable layout. The form's linked Google Sheet stays as a raw backup.
+Static application forms, published with GitHub Pages. Each role has its own landing
+page and form, and submits to its own Google Form. An Apps Script trigger appends each
+response to that role's private Google Doc in a readable layout. Each form's linked
+Google Sheet stays as a raw backup. All forms, sheets and docs are in Drive under
+"Wayne Citadel Applications", one folder per role.
 
-- `index.html`: role and company overview
-- `apply.html`, `app.js`: the form
+| Role | Pages |
+|---|---|
+| AI Engineer | `index.html`, `apply.html` |
+| Frontend Engineer | `frontend/` |
+| Backend Engineer | `backend/` |
+| Full Stack Engineer | `fullstack/` |
+| Cybersecurity Engineer | `cybersecurity/` |
+| UI/UX Designer | `ui-ux/` |
+| DevOps Engineer | `devops/` |
+
+- `app.js`: the form logic, shared by every role. Each `apply.html` defines `APPLICATION`
+  with its form endpoint, entry IDs and draft key.
 - `styles.css`: shared styles
-- `apps-script/Code.gs`: form-submit trigger that writes to the doc
+- `apps-script/Code.gs`: form-submit trigger that writes each role's responses to its doc
+- `apps-script/Setup.gs`: one-time script that created the role forms, sheets and docs
 
 ## Setting up the doc trigger
 
-The trigger is installed in the standalone Apps Script project
-"Wayne Citadel Applications to Doc" on the account that owns the form and the doc.
-To reinstall: paste `apps-script/Code.gs` into a new project at script.google.com,
+The triggers are installed in the standalone Apps Script project
+"Wayne Citadel Applications to Doc" on the account that owns the forms and the docs.
+To reinstall: paste `apps-script/Code.gs` into a project at script.google.com,
 select `install`, click Run and approve the permissions.
+
+## Adding a role
+
+Add the role to `NEW_ROLES` in `Setup.gs` and run `createRoleForms()`. It logs the new
+form, sheet and doc IDs, the form endpoint and the entry IDs in field order. Put the
+endpoint and entry IDs in the role's `apply.html`, add the form to `ROLES` in `Code.gs`,
+and run `install()`.

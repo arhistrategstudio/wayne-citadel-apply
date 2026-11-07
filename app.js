@@ -1,27 +1,11 @@
-const ENDPOINT = "https://docs.google.com/forms/d/e/1FAIpQLSfANQMVBZL67-pEaYGADTNLNsmUFwFWasDNcgpZkIrMtLXsBw/formResponse";
-const ENTRY_IDS = {
-  name: 1729838657,
-  email: 1675897583,
-  location: 1936091208,
-  github: 1024284574,
-  linkedin: 2133174874,
-  availability: 1709997039,
-  pay: 329680528,
-  stack: 895075083,
-  iac_level: 1736882114,
-  shipped: 617983085,
-  grounding: 350222479,
-  evaluation: 61610046,
-  plan_check: 1652205462,
-  model_design: 1866922369,
-};
-const DRAFT_KEY = "wc-ai-engineer-draft";
+// Each apply page defines APPLICATION: its Google Form endpoint, entry IDs and draft key.
+const { endpoint: ENDPOINT, entries: ENTRY_IDS, draftKey: DRAFT_KEY } = APPLICATION;
 
 const form = document.getElementById("form");
 const errorBox = document.getElementById("error");
 const submitBtn = document.getElementById("submit");
 const saved = document.getElementById("saved");
-const essay = document.getElementById("model_design");
+const essay = form.querySelector(".final textarea");
 const count = document.getElementById("count");
 
 function readForm() {

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apply · Wayne Citadel</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span>Wayne Citadel</a>
+  <span class="bar-link muted" id="saved" aria-live="polite"></span>
+</header>
+
+<main class="page narrow">
+  <form id="form" novalidate>
+    <p class="tag">Application / Full Stack Engineer</p>
+    <h1 class="form-title">Tell us how you build.</h1>
+    <p class="lead">Short, specific answers beat long ones. Your draft is kept in this browser until you submit.</p>
+
+    <fieldset>
+      <legend><span>01</span> About you</legend>
+      <div class="two">
+        <div class="field"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="location">Location and timezone</label><input id="location" name="location" placeholder="Berlin, CET" required></div>
+        <div class="field">
+          <label for="availability">Hours per week you can give</label>
+          <select id="availability" name="availability" required>
+            <option value="">Select</option>
+            <option>Under 5</option>
+            <option>5 to 10</option>
+            <option>10 to 20</option>
+            <option>Over 20</option>
+          </select>
+        </div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="github">GitHub or portfolio</label><input id="github" name="github" type="url" placeholder="https://" required></div>
+        <div class="field"><label for="linkedin">LinkedIn <em>optional</em></label><input id="linkedin" name="linkedin" type="url" placeholder="https://"></div>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="pay-label">
+        <p class="label" id="pay-label">This is a paid role, but the budget is still being negotiated, so we cannot give you a number yet. Does that work for you?</p>
+        <label class="opt"><input type="radio" name="pay" value="Can start before the budget is set" required><span>Yes, I can start before the budget is set</span></label>
+        <label class="opt"><input type="radio" name="pay" value="Needs the number before starting"><span>I need the number before I start</span></label>
+        <label class="opt"><input type="radio" name="pay" value="Contact once the budget is set"><span>Contact me once the budget is set</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span>02</span> Your experience</legend>
+      <div class="field">
+        <label for="stack">What is your stack?</label>
+        <p class="hint">Frontend, backend, databases, authentication, hosting, testing. Mark what you have used in production.</p>
+        <textarea id="stack" name="stack" rows="4" required></textarea>
+      </div>
+      <div class="field">
+        <label for="level">How well do you know OAuth and GitHub App authentication?</label>
+        <select id="level" name="level" required>
+          <option value="">Select</option>
+          <option>None yet, but I can learn it</option>
+          <option>I have used a library with its defaults</option>
+          <option>I have implemented OAuth flows and sessions myself</option>
+          <option>I have run it in production, with token refresh, revocation and scopes</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="shipped">Describe one product you built end to end.</label>
+        <p class="hint">What did you build on each side, how did you know it worked for users, and what broke first?</p>
+        <textarea id="shipped" name="shipped" rows="5" required></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span>03</span> How you would work here</legend>
+      <div class="field">
+        <label for="scenario_a">A customer installs our GitHub App on 3 of their 40 repositories, then adds 10 more a week later. The dashboard still shows only the first 3. Where can this break, from webhook to UI, and how do you find it?</label>
+        <textarea id="scenario_a" name="scenario_a" rows="5" required></textarea>
+      </div>
+      <div class="field">
+        <label for="scenario_b">A user suppresses a finding in the dashboard with the reason "accepted risk". The next push to the pull request still shows it in the comment. How do you design suppressions so the comment, SARIF and dashboard always agree?</label>
+        <textarea id="scenario_b" name="scenario_b" rows="5" required></textarea>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="check-label">
+        <p class="label" id="check-label">The dashboard calls <code>GET /api/findings?repo=acme/infra</code>. The handler checks that the user is logged in, then returns the findings for the repository in the query string. What is wrong?</p>
+        <label class="opt"><input type="radio" name="check" value="A: nothing, user is authenticated" required><span>Nothing, the user is authenticated</span></label>
+        <label class="opt"><input type="radio" name="check" value="B: should be POST"><span>It should be a POST request</span></label>
+        <label class="opt"><input type="radio" name="check" value="C: no access check on the repository"><span>It never checks that the user may access that repository, so anyone logged in can read any customer's findings</span></label>
+        <label class="opt"><input type="radio" name="check" value="D: repo name not URL encoded"><span>The repository name is not URL encoded</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="final">
+      <legend><span>04</span> Design problem</legend>
+      <div class="brief">
+        <p>Today the product is only a GitHub Action. We want a team to install the GitHub App, pick repositories, and get a useful result on their next Terraform or OpenTofu pull request.</p>
+        <p>There is no dashboard yet. Plan content in pull requests is untrusted, and customers must never see each other's data.</p>
+      </div>
+      <div class="field">
+        <label for="design">How would you build the first-run experience end to end?</label>
+        <p class="hint">Cover these points. If you think the brief is wrong in part, say so and explain why.</p>
+        <ol class="points">
+          <li>Installation, authentication and permissions: what we ask GitHub for, and why</li>
+          <li>What the user sees between installation and the first pull request</li>
+          <li>Data model and API behind it</li>
+          <li>How the Action and the web app share configuration and results</li>
+          <li>Failure states: missing plan, unsupported provider, incomplete analysis</li>
+          <li>Security: tenancy, tokens, untrusted plan content</li>
+          <li>What you would build in the first two weeks</li>
+        </ol>
+        <textarea id="design" name="design" rows="16" minlength="400" required></textarea>
+        <p class="hint count"><span id="count">0</span> words. Most good answers run 300 to 800.</p>
+      </div>
+    </fieldset>
+
+    <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <p class="error" id="error" role="alert" hidden></p>
+    <div class="actions">
+      <button class="btn" id="submit" type="submit">Submit application</button>
+      <span class="note">Your answers are used only to review this application.</span>
+    </div>
+  </form>
+
+  <section class="done" id="done" hidden tabindex="-1">
+    <p class="tag">Received</p>
+    <h1 class="form-title">Thank you.</h1>
+    <p class="lead">Your application is in. We will be in touch by email.</p>
+    <a class="btn ghost" href="index.html">Back to Wayne Citadel</a>
+  </section>
+</main>
+
+<footer class="foot">Wayne Citadel</footer>
+<script>
+const APPLICATION = {
+  endpoint: "https://docs.google.com/forms/d/e/1FAIpQLSc83yGssBQMhoeHzHrlToBcJWTBK3-e5u3NKsBWyuYbkO2IZg/formResponse",
+  draftKey: "wc-fullstack-draft",
+  entries: {
+    name: 617268755,
+    email: 1835417493,
+    location: 610054876,
+    github: 1070610911,
+    linkedin: 964102700,
+    availability: 1053518369,
+    pay: 223109049,
+    stack: 884698161,
+    level: 18213828,
+    shipped: 2010163523,
+    scenario_a: 1430829719,
+    scenario_b: 515035199,
+    check: 580477230,
+    design: 739123889,
+  },
+};
+</script>
+<script src="../app.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apply · Wayne Citadel</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span>Wayne Citadel</a>
+  <span class="bar-link muted" id="saved" aria-live="polite"></span>
+</header>
+
+<main class="page narrow">
+  <form id="form" novalidate>
+    <p class="tag">Application / Backend Engineer</p>
+    <h1 class="form-title">Tell us how you build.</h1>
+    <p class="lead">Short, specific answers beat long ones. Your draft is kept in this browser until you submit.</p>
+
+    <fieldset>
+      <legend><span>01</span> About you</legend>
+      <div class="two">
+        <div class="field"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="location">Location and timezone</label><input id="location" name="location" placeholder="Berlin, CET" required></div>
+        <div class="field">
+          <label for="availability">Hours per week you can give</label>
+          <select id="availability" name="availability" required>
+            <option value="">Select</option>
+            <option>Under 5</option>
+            <option>5 to 10</option>
+            <option>10 to 20</option>
+            <option>Over 20</option>
+          </select>
+        </div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="github">GitHub or portfolio</label><input id="github" name="github" type="url" placeholder="https://" required></div>
+        <div class="field"><label for="linkedin">LinkedIn <em>optional</em></label><input id="linkedin" name="linkedin" type="url" placeholder="https://"></div>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="pay-label">
+        <p class="label" id="pay-label">This is a paid role, but the budget is still being negotiated, so we cannot give you a number yet. Does that work for you?</p>
+        <label class="opt"><input type="radio" name="pay" value="Can start before the budget is set" required><span>Yes, I can start before the budget is set</span></label>
+        <label class="opt"><input type="radio" name="pay" value="Needs the number before starting"><span>I need the number before I start</span></label>
+        <label class="opt"><input type="radio" name="pay" value="Contact once the budget is set"><span>Contact me once the budget is set</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span>02</span> Your experience</legend>
+      <div class="field">
+        <label for="stack">What is your stack?</label>
+        <p class="hint">Languages, frameworks, databases, queues, cloud services, testing. Mark what you have used in production.</p>
+        <textarea id="stack" name="stack" rows="4" required></textarea>
+      </div>
+      <div class="field">
+        <label for="level">How well do you know the GitHub API and GitHub Apps?</label>
+        <select id="level" name="level" required>
+          <option value="">Select</option>
+          <option>None yet, but I can learn it</option>
+          <option>I have used the REST API in scripts</option>
+          <option>I have built a GitHub App or Action</option>
+          <option>I have run one in production, with webhooks, rate limits and retries</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="shipped">Describe one backend service you shipped and ran in production.</label>
+        <p class="hint">What did it do, what load did it handle, and what broke first?</p>
+        <textarea id="shipped" name="shipped" rows="5" required></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span>03</span> How you would work here</legend>
+      <div class="field">
+        <label for="scenario_a">GitHub delivers the same <code>pull_request.synchronize</code> webhook twice, 400 ms apart, and a third time an hour later after a manual redelivery. Our service posts a review comment for each. How do you make processing correct?</label>
+        <p class="hint">Cover idempotency, ordering, and a newer commit arriving while an analysis is still running.</p>
+        <textarea id="scenario_a" name="scenario_a" rows="5" required></textarea>
+      </div>
+      <div class="field">
+        <label for="scenario_b">A plan JSON from a large monorepo is 300 MB. The analyzer runs on a GitHub Actions runner with 7 GB of RAM and loads the whole file. How would you change it, and how do you prove the findings did not change?</label>
+        <textarea id="scenario_b" name="scenario_b" rows="5" required></textarea>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="check-label">
+        <p class="label" id="check-label">The analysis finished, but uploading SARIF to GitHub returned HTTP 502 three times in a row. What should the job report?</p>
+        <label class="opt"><input type="radio" name="check" value="A: success, analysis worked" required><span>Success, because the analysis itself worked</span></label>
+        <label class="opt"><input type="radio" name="check" value="B: retry until it succeeds"><span>Keep retrying until the upload succeeds</span></label>
+        <label class="opt"><input type="radio" name="check" value="C: fail as not delivered, keep results"><span>Fail the check as "results not delivered" and keep the results as a build artifact</span></label>
+        <label class="opt"><input type="radio" name="check" value="D: no issues found"><span>Post "no issues found" so the pull request is not blocked</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="final">
+      <legend><span>04</span> Design problem</legend>
+      <div class="brief">
+        <p>Each pull-request run produces findings from the deterministic analyzer. We need history across commits, so a finding fixed in a later commit shows as resolved. Suppressions need a reason and an expiry, and every change needs an audit trail.</p>
+        <p>It must work for one repository and for an organization with 2,000. Plan contents, resource names and tags come from pull requests and are untrusted.</p>
+      </div>
+      <div class="field">
+        <label for="design">How would you design the findings backend?</label>
+        <p class="hint">Cover these points. If you think the brief is wrong in part, say so and explain why.</p>
+        <ol class="points">
+          <li>Data model: runs, findings, suppressions</li>
+          <li>How a finding keeps its identity when a resource is renamed or moved into a module</li>
+          <li>API for the pull-request comment, SARIF and the dashboard</li>
+          <li>Processing: webhooks, queues, retries, idempotency</li>
+          <li>Multi-tenancy and isolation between customers</li>
+          <li>Hostile input in plan values, resource names and tags</li>
+          <li>What you would build in the first two weeks</li>
+        </ol>
+        <textarea id="design" name="design" rows="16" minlength="400" required></textarea>
+        <p class="hint count"><span id="count">0</span> words. Most good answers run 300 to 800.</p>
+      </div>
+    </fieldset>
+
+    <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <p class="error" id="error" role="alert" hidden></p>
+    <div class="actions">
+      <button class="btn" id="submit" type="submit">Submit application</button>
+      <span class="note">Your answers are used only to review this application.</span>
+    </div>
+  </form>
+
+  <section class="done" id="done" hidden tabindex="-1">
+    <p class="tag">Received</p>
+    <h1 class="form-title">Thank you.</h1>
+    <p class="lead">Your application is in. We will be in touch by email.</p>
+    <a class="btn ghost" href="index.html">Back to Wayne Citadel</a>
+  </section>
+</main>
+
+<footer class="foot">Wayne Citadel</footer>
+<script>
+const APPLICATION = {
+  endpoint: "https://docs.google.com/forms/d/e/1FAIpQLScctD1Yc0aUkobMTBY_JcHxB8ZOUp46mT9lBJBaMamhCI-aVQ/formResponse",
+  draftKey: "wc-backend-draft",
+  entries: {
+    name: 1393666071,
+    email: 479528825,
+    location: 2117417572,
+    github: 1955143285,
+    linkedin: 242556538,
+    availability: 1880855999,
+    pay: 1367386790,
+    stack: 1016029922,
+    level: 1020671698,
+    shipped: 674188382,
+    scenario_a: 1896215730,
+    scenario_b: 1582033883,
+    check: 1894027732,
+    design: 1434219451,
+  },
+};
+</script>
+<script src="../app.js"></script>
+</body>
+</html>

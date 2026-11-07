@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apply · Wayne Citadel</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span>Wayne Citadel</a>
+  <span class="bar-link muted" id="saved" aria-live="polite"></span>
+</header>
+
+<main class="page narrow">
+  <form id="form" novalidate>
+    <p class="tag">Application / DevOps Engineer</p>
+    <h1 class="form-title">Tell us how you build.</h1>
+    <p class="lead">Short, specific answers beat long ones. Your draft is kept in this browser until you submit.</p>
+
+    <fieldset>
+      <legend><span>01</span> About you</legend>
+      <div class="two">
+        <div class="field"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="location">Location and timezone</label><input id="location" name="location" placeholder="Berlin, CET" required></div>
+        <div class="field">
+          <label for="availability">Hours per week you can give</label>
+          <select id="availability" name="availability" required>
+            <option value="">Select</option>
+            <option>Under 5</option>
+            <option>5 to 10</option>
+            <option>10 to 20</option>
+            <option>Over 20</option>
+          </select>
+        </div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="github">GitHub or portfolio</label><input id="github" name="github" type="url" placeholder="https://" required></div>
+        <div class="field"><label for="linkedin">LinkedIn <em>optional</em></label><input id="linkedin" name="linkedin" type="url" placeholder="https://"></div>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="pay-label">
+        <p class="label" id="pay-label">This is a paid role, but the budget is still being negotiated, so we cannot give you a number yet. Does that work for you?</p>
+        <label class="opt"><input type="radio" name="pay" value="Can start before the budget is set" required><span>Yes, I can start before the budget is set</span></label>
+        <label class="opt"><input type="radio" name="pay" value="Needs the number before starting"><span>I need the number before I start</span></label>
+        <label class="opt"><input type="radio" name="pay" value="Contact once the budget is set"><span>Contact me once the budget is set</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span>02</span> Your experience</legend>
+      <div class="field">
+        <label for="stack">What is your stack?</label>
+        <p class="hint">CI/CD systems, AWS, Terraform or OpenTofu, containers, observability, scripting languages. Mark what you have used in production.</p>
+        <textarea id="stack" name="stack" rows="4" required></textarea>
+      </div>
+      <div class="field">
+        <label for="level">How well do you know Terraform or OpenTofu on AWS?</label>
+        <select id="level" name="level" required>
+          <option value="">Select</option>
+          <option>None yet, but I can learn it</option>
+          <option>I have read and reviewed plans</option>
+          <option>I write Terraform regularly</option>
+          <option>I run it in production, with CI</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="shipped">Describe one pipeline or platform you built and ran.</label>
+        <p class="hint">What did it deploy, how did you know it was healthy, and what broke first?</p>
+        <textarea id="shipped" name="shipped" rows="5" required></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span>03</span> How you would work here</legend>
+      <div class="field">
+        <label for="scenario_a">We record plan fixtures by running <code>terraform plan</code> against real AWS test accounts. The same code should give the same plan JSON, but two runs a day apart differ. What causes this, and how do you make recording reproducible?</label>
+        <p class="hint">Name each source of drift and how you pin or remove it.</p>
+        <textarea id="scenario_a" name="scenario_a" rows="5" required></textarea>
+      </div>
+      <div class="field">
+        <label for="scenario_b">Customers pin our Action as <code>wayne-citadel/review@v1</code>. How do you release a new version safely, and what do you do if v1.4.0 breaks plans for some customers an hour after release?</label>
+        <textarea id="scenario_b" name="scenario_b" rows="5" required></textarea>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="check-label">
+        <p class="label" id="check-label">The workflow only needs to read the repository and post a pull-request comment. Which <code>permissions</code> block should it use?</p>
+        <label class="opt"><input type="radio" name="check" value="A: write-all" required><span><code>permissions: write-all</code></span></label>
+        <label class="opt"><input type="radio" name="check" value="B: contents read, pull-requests write"><span><code>contents: read</code> and <code>pull-requests: write</code></span></label>
+        <label class="opt"><input type="radio" name="check" value="C: contents write, pull-requests write"><span><code>contents: write</code> and <code>pull-requests: write</code></span></label>
+        <label class="opt"><input type="radio" name="check" value="D: no block, defaults"><span>No permissions block, the defaults are fine</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="final">
+      <legend><span>04</span> Design problem</legend>
+      <div class="brief">
+        <p>Wayne Citadel ships as a GitHub Action that customers pin by version. Behind it are a fixture library of plans recorded in real AWS accounts, golden-file tests, and a model evaluation set that costs money on every run.</p>
+        <p>Assume a small budget, and no long-lived cloud credentials anywhere.</p>
+      </div>
+      <div class="field">
+        <label for="design">How would you build the CI and release system?</label>
+        <p class="hint">Cover these points. If you think the brief is wrong in part, say so and explain why.</p>
+        <ol class="points">
+          <li>Pipeline stages, and what blocks a merge</li>
+          <li>Test AWS accounts: isolation, OIDC credentials, cleanup and cost limits</li>
+          <li>Recording fixtures reproducibly</li>
+          <li>When the paid model evaluation runs, and its budget</li>
+          <li>Releases: versioning, signing, provenance, rollback</li>
+          <li>Secrets and supply-chain security for the Action itself</li>
+          <li>What you would build in the first two weeks</li>
+        </ol>
+        <textarea id="design" name="design" rows="16" minlength="400" required></textarea>
+        <p class="hint count"><span id="count">0</span> words. Most good answers run 300 to 800.</p>
+      </div>
+    </fieldset>
+
+    <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <p class="error" id="error" role="alert" hidden></p>
+    <div class="actions">
+      <button class="btn" id="submit" type="submit">Submit application</button>
+      <span class="note">Your answers are used only to review this application.</span>
+    </div>
+  </form>
+
+  <section class="done" id="done" hidden tabindex="-1">
+    <p class="tag">Received</p>
+    <h1 class="form-title">Thank you.</h1>
+    <p class="lead">Your application is in. We will be in touch by email.</p>
+    <a class="btn ghost" href="index.html">Back to Wayne Citadel</a>
+  </section>
+</main>
+
+<footer class="foot">Wayne Citadel</footer>
+<script>
+const APPLICATION = {
+  endpoint: "https://docs.google.com/forms/d/e/1FAIpQLSfkG7xziF2mDdzjr8LJHSwDupxg4OIL30Kzt98boAbcTa9JNw/formResponse",
+  draftKey: "wc-devops-draft",
+  entries: {
+    name: 1364417051,
+    email: 2013486899,
+    location: 139767156,
+    github: 1871273446,
+    linkedin: 1168457031,
+    availability: 833790028,
+    pay: 667292767,
+    stack: 1377252037,
+    level: 734842699,
+    shipped: 706524063,
+    scenario_a: 920591798,
+    scenario_b: 913019315,
+    check: 1685833429,
+    design: 1607357230,
+  },
+};
+</script>
+<script src="../app.js"></script>
+</body>
+</html>

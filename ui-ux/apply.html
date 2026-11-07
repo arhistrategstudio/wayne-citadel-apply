@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apply · Wayne Citadel</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span>Wayne Citadel</a>
+  <span class="bar-link muted" id="saved" aria-live="polite"></span>
+</header>
+
+<main class="page narrow">
+  <form id="form" novalidate>
+    <p class="tag">Application / UI/UX Designer</p>
+    <h1 class="form-title">Tell us how you build.</h1>
+    <p class="lead">Short, specific answers beat long ones. Your draft is kept in this browser until you submit.</p>
+
+    <fieldset>
+      <legend><span>01</span> About you</legend>
+      <div class="two">
+        <div class="field"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="location">Location and timezone</label><input id="location" name="location" placeholder="Berlin, CET" required></div>
+        <div class="field">
+          <label for="availability">Hours per week you can give</label>
+          <select id="availability" name="availability" required>
+            <option value="">Select</option>
+            <option>Under 5</option>
+            <option>5 to 10</option>
+            <option>10 to 20</option>
+            <option>Over 20</option>
+          </select>
+        </div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="github">GitHub or portfolio</label><input id="github" name="github" type="url" placeholder="https://" required></div>
+        <div class="field"><label for="linkedin">LinkedIn <em>optional</em></label><input id="linkedin" name="linkedin" type="url" placeholder="https://"></div>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="pay-label">
+        <p class="label" id="pay-label">This is a paid role, but the budget is still being negotiated, so we cannot give you a number yet. Does that work for you?</p>
+        <label class="opt"><input type="radio" name="pay" value="Can start before the budget is set" required><span>Yes, I can start before the budget is set</span></label>
+        <label class="opt"><input type="radio" name="pay" value="Needs the number before starting"><span>I need the number before I start</span></label>
+        <label class="opt"><input type="radio" name="pay" value="Contact once the budget is set"><span>Contact me once the budget is set</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span>02</span> Your experience</legend>
+      <div class="field">
+        <label for="stack">What is your stack?</label>
+        <p class="hint">Design tools, prototyping, research methods, design systems, handoff, any code you write. Mark what you have used in shipped work.</p>
+        <textarea id="stack" name="stack" rows="4" required></textarea>
+      </div>
+      <div class="field">
+        <label for="level">How much do you work in code?</label>
+        <select id="level" name="level" required>
+          <option value="">Select</option>
+          <option>Not at all</option>
+          <option>I read HTML and CSS</option>
+          <option>I build prototypes in code</option>
+          <option>I ship production UI code</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="shipped">Describe one product or feature you designed that shipped.</label>
+        <p class="hint">What problem did it solve, how did you test it with users, and what did you change after launch?</p>
+        <textarea id="shipped" name="shipped" rows="5" required></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span>03</span> How you would work here</legend>
+      <div class="field">
+        <label for="scenario_a">Reviewers say our pull-request comments are "too long, I just scroll past". 70% of comments are never expanded. What do you do in the first week, and what would you change?</label>
+        <p class="hint">How do you research it with few users and little time?</p>
+        <textarea id="scenario_a" name="scenario_a" rows="5" required></textarea>
+      </div>
+      <div class="field">
+        <label for="scenario_b">An analysis ends in one of three states: findings, no findings, or incomplete, because some values are only known after apply. In early tests, users read "incomplete" as "safe". How do you design the three states so nobody makes that mistake?</label>
+        <textarea id="scenario_b" name="scenario_b" rows="5" required></textarea>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="check-label">
+        <p class="label" id="check-label">What is the strongest way to show severity in a list of findings?</p>
+        <label class="opt"><input type="radio" name="check" value="A: color only" required><span>Color only, from red to yellow</span></label>
+        <label class="opt"><input type="radio" name="check" value="B: text label and icon, color secondary"><span>A text label and an icon, with color as a secondary cue</span></label>
+        <label class="opt"><input type="radio" name="check" value="C: icons only"><span>Icons only, to save space</span></label>
+        <label class="opt"><input type="radio" name="check" value="D: sort and hide label"><span>Sort by severity and hide the label</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="final">
+      <legend><span>04</span> Design problem</legend>
+      <div class="brief">
+        <p>One change opens a security group to the internet, widens an IAM policy, and marks a database for replacement. Each finding has a severity from the analyzer, a grounded explanation and the plan diff.</p>
+        <p>It must work as a GitHub comment (Markdown only, no scripts, no custom styles) and later as a dashboard page. You may link sketches or a Figma file in your answer.</p>
+      </div>
+      <div class="field">
+        <label for="design">How would you design the review experience?</label>
+        <p class="hint">Cover these points. If you think the brief is wrong in part, say so and explain why.</p>
+        <ol class="points">
+          <li>Who reads it, and what they must decide</li>
+          <li>What they see in the first five seconds</li>
+          <li>Structure of the comment within the limits of Markdown</li>
+          <li>States: no findings, incomplete analysis, explanation withheld</li>
+          <li>How the dashboard extends the comment instead of repeating it</li>
+          <li>Accessibility</li>
+          <li>How you would test it in the first two weeks</li>
+        </ol>
+        <textarea id="design" name="design" rows="16" minlength="400" required></textarea>
+        <p class="hint count"><span id="count">0</span> words. Most good answers run 300 to 800.</p>
+      </div>
+    </fieldset>
+
+    <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <p class="error" id="error" role="alert" hidden></p>
+    <div class="actions">
+      <button class="btn" id="submit" type="submit">Submit application</button>
+      <span class="note">Your answers are used only to review this application.</span>
+    </div>
+  </form>
+
+  <section class="done" id="done" hidden tabindex="-1">
+    <p class="tag">Received</p>
+    <h1 class="form-title">Thank you.</h1>
+    <p class="lead">Your application is in. We will be in touch by email.</p>
+    <a class="btn ghost" href="index.html">Back to Wayne Citadel</a>
+  </section>
+</main>
+
+<footer class="foot">Wayne Citadel</footer>
+<script>
+const APPLICATION = {
+  endpoint: "https://docs.google.com/forms/d/e/1FAIpQLSdsQ3SYc3jDCh2Q94Vx1XM_8Z0ZdQOKIHtNDLWIi86LXaD9Fw/formResponse",
+  draftKey: "wc-ui-ux-draft",
+  entries: {
+    name: 1643412721,
+    email: 243554509,
+    location: 1824077527,
+    github: 279332613,
+    linkedin: 1982448621,
+    availability: 1719680341,
+    pay: 1212544250,
+    stack: 2114153611,
+    level: 2112728099,
+    shipped: 2059517313,
+    scenario_a: 1711841929,
+    scenario_b: 1941320842,
+    check: 559523344,
+    design: 1235464,
+  },
+};
+</script>
+<script src="../app.js"></script>
+</body>
+</html>
