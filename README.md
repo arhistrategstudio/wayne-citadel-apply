@@ -11,6 +11,7 @@ readable layout. The form's linked Google Sheet stays as a raw backup.
 
 ## Setting up the doc trigger
 
-1. Open the Google Form editor, then Extensions > Apps Script.
-2. Replace the contents of `Code.gs` with `apps-script/Code.gs` and save.
-3. Select `install` and click Run. Approve the permissions with the account that owns the form and the doc.
+The trigger is installed in the standalone Apps Script project
+"Wayne Citadel Applications to Doc" on the account that owns the form and the doc.
+To reinstall: paste `apps-script/Code.gs` into a new project at script.google.com,
+select `install`, click Run and approve the permissions.

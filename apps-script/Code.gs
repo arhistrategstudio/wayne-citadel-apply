@@ -1,5 +1,6 @@
-// Bound to the Google Form (Extensions > Apps Script). Run install() once.
+// Standalone Apps Script project. Run install() once to add the form-submit trigger.
 // Each new response is appended to the applications doc in a readable layout.
+const FORM_ID = "1J8eAK61Z1d73rnRRrUlwQ4LQV82cjwuJZ8tUJyOS_ok";
 const DOC_ID = "1KTytjdJWCimvj8RXXfy5h_KkzMUAnSb0P3lLWtM35Ik";
 const LONG_ANSWERS = {
   "Stack": "What is your stack?",
@@ -11,11 +12,10 @@ const LONG_ANSWERS = {
 const PLAN_CHECK = "Plan JSON check";
 
 function install() {
-  const form = FormApp.getActiveForm();
-  for (const t of ScriptApp.getUserTriggers(form)) {
+  for (const t of ScriptApp.getProjectTriggers()) {
     if (t.getHandlerFunction() === "appendToDoc") ScriptApp.deleteTrigger(t);
   }
-  ScriptApp.newTrigger("appendToDoc").forForm(form).onFormSubmit().create();
+  ScriptApp.newTrigger("appendToDoc").forForm(FORM_ID).onFormSubmit().create();
 }
 
 function appendToDoc(e) {
@@ -31,7 +31,7 @@ function appendToDoc(e) {
   meta(body, "Submitted", submitted);
   for (const [title, value] of Object.entries(answers)) {
     if (title === "Full name" || title in LONG_ANSWERS) continue;
-    meta(body, title, title === PLAN_CHECK ? `${value} (correct: C)` : value);
+    meta(body, title, title === PLAN_CHECK ? `${value} (correct: C)` : value || "-");
   }
 
   for (const [title, question] of Object.entries(LONG_ANSWERS)) {
